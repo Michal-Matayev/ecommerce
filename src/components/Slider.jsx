@@ -7,6 +7,7 @@ const Container = styled.div`
     height:100vh;
     display:flex;
     position:relative;
+    // overflow:hidden;
 
  `
  
@@ -33,13 +34,16 @@ const Arrow = styled.div`
     `
 
 const Wrapper = styled.div`
-    height:100%;`
+    height:100%;
+    display:flex;
+    transform:translateX(-100px)`
 
 const Slide = styled.div`
     width:100vw;
     height:100vh;
     display:flex;
     align-items:center;
+    background-color:#${props=>props.bg}
 `;
 
 const ImagContainer = styled.div`
@@ -66,24 +70,42 @@ const Desc = styled.p`
     letter-spacing:3px;
     `;
 
-const Button = styled.button``;
+const Button = styled.button`
+    padding:10px;
+    font-size:20px;
+    background-color:pink;
+//   background-color:transparent;
+    font-wight:900;
+    cursor:pointer`;
 
 const Slider = () => {
+    const handleClick = (direction) => { };
   return (
       <Container>
-          <Arrow direction="left">
+          <Arrow direction="left" onClick={()=>handleClick("left")}>
               <ArrowLeftOutlined/>
           </Arrow>
 
 
           <Wrapper>
-              <Slide>
+              <Slide bg="f5fad">
               <ImagContainer>
                   {/* <img src={jewellery} alt="jewellery"/> */}
                  <Image src={jewellery} alt="jewellery"/> 
               </ImagContainer>
                   <InfoContainer>
-                      <Title>Jewellery</Title>
+                      <Title> populare Jewellery </Title>
+                      <Desc>choose your jewellery</Desc>
+                        <Button>SHOP NOW</Button>
+                  </InfoContainer>
+              </Slide>
+            <Slide bg="f6fad">
+              <ImagContainer>
+                  {/* <img src={jewellery} alt="jewellery"/> */}
+                 <Image src={jewellery} alt="jewellery"/> 
+              </ImagContainer>
+                  <InfoContainer>
+                      <Title>special  Jewellery</Title>
                       <Desc>choose your jewellery</Desc>
                         <Button>SHOP NOW</Button>
                   </InfoContainer>
@@ -91,7 +113,7 @@ const Slider = () => {
           </Wrapper>
 
 
-          <Arrow  direction="right">
+          <Arrow  direction="right" onClick={()=>handleClick("right")}>
               <ArrowRightOutlined/>
           </Arrow>
     </Container>
