@@ -1,6 +1,9 @@
 import { ArrowLeftOutlined ,ArrowRightOutlined} from "@mui/icons-material"
+import { useState } from "react"
 import styled from "styled-components"
-import jewellery from "../pictures/jewellery.jpg"
+import  jewellery from "../pictures/jewellery.jpg"
+import  jewellery2 from "../pictures/jewellery2.jpg"
+
 
 const Container = styled.div`
     width:100%;
@@ -26,17 +29,20 @@ const Arrow = styled.div`
     position: absolute;
     top: 0;
     botton: 0;
-    left: ${props=> props.direction === "left" && "10px"};
-    right: ${props=> props.direction === "right" && "10px"};
+    left: ${props => props.direction === "left" && "10px"};
+    right: ${props => props.direction === "right" && "10px"};
     margin:auto;
     cursor:pointer;
     opacity:0.5;
-    `
+    z-index:2;
+    `;
 
 const Wrapper = styled.div`
     height:100%;
     display:flex;
-    transform:translateX(-100px)`
+    transition :all 1.5s ease;
+    transform:translateX(${(props) => props.slideIndex * -100}vw);
+    `;
 
 const Slide = styled.div`
     width:100vw;
@@ -79,45 +85,53 @@ const Button = styled.button`
     cursor:pointer`;
 
 const Slider = () => {
-    const handleClick = (direction) => { };
-  return (
-      <Container>
-          <Arrow direction="left" onClick={()=>handleClick("left")}>
-              <ArrowLeftOutlined/>
-          </Arrow>
+    const [slideIndex, setSlideIndex] = useState(0);
+    const handleClick = (direction) => {
+        if (direction == "left") {
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+        }
+        else {
+            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+        }
+    };
+    return (
+        <Container>
+            <Arrow direction="left" onClick={() => handleClick("left")}>
+                <ArrowLeftOutlined />
+            </Arrow>
 
 
-          <Wrapper>
-              <Slide bg="f5fad">
-              <ImagContainer>
-                  {/* <img src={jewellery} alt="jewellery"/> */}
-                 <Image src={jewellery} alt="jewellery"/> 
-              </ImagContainer>
-                  <InfoContainer>
-                      <Title> populare Jewellery </Title>
-                      <Desc>choose your jewellery</Desc>
+            <Wrapper slideIndex={slideIndex}>
+                <Slide bg="f5fad">
+                    <ImagContainer>
+                        {/* <img src={jewellery} alt="jewellery"/> */}
+                        <Image src={jewellery} alt="jewellery" />
+                    </ImagContainer>
+                    <InfoContainer>
+                        <Title> populare Jewellery </Title>
+                        <Desc>choose your jewellery</Desc>
                         <Button>SHOP NOW</Button>
-                  </InfoContainer>
-              </Slide>
-            <Slide bg="f6fad">
-              <ImagContainer>
-                  {/* <img src={jewellery} alt="jewellery"/> */}
-                 <Image src={jewellery} alt="jewellery"/> 
-              </ImagContainer>
-                  <InfoContainer>
-                      <Title>special  Jewellery</Title>
-                      <Desc>choose your jewellery</Desc>
+                    </InfoContainer>
+                </Slide>
+                <Slide bg="f6fad">
+                    <ImagContainer>
+                        {/* <img src={jewellery} alt="jewellery"/> */}
+                        <Image src={jewellery2} alt="jewellery2" />
+                    </ImagContainer>
+                    <InfoContainer>
+                        <Title>special  Jewellery</Title>
+                        <Desc>choose your jewellery</Desc>
                         <Button>SHOP NOW</Button>
-                  </InfoContainer>
-              </Slide>
-          </Wrapper>
+                    </InfoContainer>
+                </Slide>
+            </Wrapper>
 
 
-          <Arrow  direction="right" onClick={()=>handleClick("right")}>
-              <ArrowRightOutlined/>
-          </Arrow>
-    </Container>
-  )
-}
+            <Arrow direction="right" onClick={() => handleClick("right")}>
+                <ArrowRightOutlined />
+            </Arrow>
+        </Container>
+    )
 
+};
 export default Slider
